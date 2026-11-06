@@ -18,7 +18,11 @@ struct __MessageQueue
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateAnimCallback);
 
-INCLUDE_ASM("asm/nonmatchings/sr2/game/state", InitMessageQueue);
+void InitMessageQueue(MessageQueue *In)
+{
+    In->Tail = 0;
+    In->Head = 0;
+}
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", DeMessageQueue);
 
