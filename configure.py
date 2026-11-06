@@ -411,43 +411,36 @@ def build_stuff(linker_entries: List[LinkerEntry], skip_checksum=False, objects_
         print("Skipping checksum step")
 
 #MARK: Short loop fix
-# Pattern to workaround unintended nops around loops
-COMMENT_PART = r"\/\* (.+) ([0-9A-Z]{2})([0-9A-Z]{2})([0-9A-Z]{2})([0-9A-Z]{2}) \*\/"
-INSTRUCTION_PART = r"(\b(bne|bnel|beq|beql|bnez|bnezl|beqzl|bgez|bgezl|bgtz|bgtzl|blez|blezl|bltz|bltzl|b)\b.*)"
-OPCODE_PATTERN = re.compile(f"{COMMENT_PART}  {INSTRUCTION_PART}")
+# The old EE assembler refuses short backward loops inside .set noreorder.
+# Rewrite only those branches as raw words; the bytes are identical.
+SHORT_LOOP_MAX_BYTES = 0x20  # backward branches within 8 instructions
 
-PROBLEMATIC_FUNCS = set(
-    [
-        # Problematic functions go here
-        "LIST_Count",
-    ]
+BRANCH_RE = re.compile(
+    r"^(?P<pre>\s*/\* \S+ (?P<addr>[0-9A-F]{8}) "
+    r"(?P<b1>[0-9A-F]{2})(?P<b2>[0-9A-F]{2})(?P<b3>[0-9A-F]{2})(?P<b4>[0-9A-F]{2}) \*/\s+)"
+    r"(?P<ins>b\w*\s+.*?\.L(?P<tgt>[0-9A-F]{8})\b.*)$",
+    re.MULTILINE,
 )
 
 def replace_instructions_with_opcodes(asm_folder: Path) -> None:
     """
-    Replace branch instructions with raw opcodes for functions that trigger the short loop bug.
+    Replace short backward-loop branches with raw opcodes so the EE assembler accepts them.
     """
     nm_folder = ROOT / asm_folder / "nonmatchings"
 
+    def fix(m):
+        addr, tgt = int(m["addr"], 16), int(m["tgt"], 16)
+        if not (0 <= addr - tgt <= SHORT_LOOP_MAX_BYTES):
+            return m[0]
+        word = m["b4"] + m["b3"] + m["b2"] + m["b1"]    # little-endian bytes -> word
+        ins = re.sub(r"\s*/\*.*?\*/", "", m["ins"]).rstrip()    # drop trailing comments
+        return f"{m['pre']}.word      0x{word} /* {ins} */"
+
     for p in nm_folder.rglob("*.s"):
-        if p.stem not in PROBLEMATIC_FUNCS:
-            continue
-
-        with p.open("r") as file:
-            content = file.read()
-
-        if re.search(OPCODE_PATTERN, content):
-            # Reference found
-            # Embed the opcode, we have to swap byte order for correct endianness
-            content = re.sub(
-                OPCODE_PATTERN,
-                r"/* \1 \2\3\4\5 */  .word      0x\5\4\3\2 /* \6 */",
-                content,
-            )
-
-            # Write the updated content back to the file
-            with p.open("w") as file:
-                file.write(content)
+        content = p.read_text()
+        new = BRANCH_RE.sub(fix, content)
+        if new != content:
+            p.write_text(new)
 
 #MARK: Main
 def main():

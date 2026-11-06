@@ -1,0 +1,79 @@
+#include "common.h"
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", SetNoPtCollideInFamily);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", ResetNoPtCollideInFamily);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckLineInWorld);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckLineInWorldMask);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckLinkedMove);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsDefaultLinkedMoveResponse);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckGravity);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsDefaultGravityResponse);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckEdgeGrabbing);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsDefaultEdgeGrabResponse);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckSliding);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsUpdateTface);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckBlockers);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckSwim);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsDefaultCheckSwimResponse);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsForceSetWater);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckLOS);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckDropHeight);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckDropOff);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckWallBend);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsFollowWall);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsCheckFeet);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsMoveLocalZClamp);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsMove);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsSetVelFromZRot);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PhysicsSetVelFromRot);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_SetVAndAFromRot);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_FindAFromDAndT);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_FindVFromAAndD);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_StopIfCloseToTarget);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckForTerrainCollide);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckForObjectCollide);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckForValidMove);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckFaceStick);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckDontGrabEdge);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_GenericLineCheckSetup);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_GenericLineCheckSetupf);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_GenericLineCheck);
+
+INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_GenericLineCheckMask);
