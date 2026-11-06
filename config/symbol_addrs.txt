@@ -1,0 +1,9 @@
+LIST_InsertFunc = 0x001415C8; // type:func size:0x20
+LIST_DeleteFunc = 0x001415E8; // type:func size:0x4C
+LIST_GetFunc = 0x00141638; // type:func size:0x34
+LIST_LastOrdered = 0x00141670; // type:func size:0x6C
+LIST_SortFunc = 0x001416E0; // type:func size:0x8C
+LIST_HeadFunc = 0x00141770; // type:func size:0x8
+LIST_Flip = 0x00141778; // type:func size:0x74
+LIST_Count = 0x001417F0; // type:func size:0x24
+LIST_Concatenate = 0x00141818; // type:func size:0x60
