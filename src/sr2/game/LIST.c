@@ -1,5 +1,6 @@
 #include "common.h"
 
+// TODO: move this struct outta here
 typedef struct NodeType NodeType;
 struct NodeType 
 { // 0x8
