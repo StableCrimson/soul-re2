@@ -1,7 +1,5 @@
 #include "common.h"
 
-#define NULL 0
-
 typedef struct NodeType NodeType;
 struct NodeType 
 { // 0x8
@@ -9,7 +7,7 @@ struct NodeType
 	/* 0x4 */ NodeType *next;
 };
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_InsertFunc);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_InsertFunc);
 
 void LIST_DeleteFunc(NodeType *node)
 {
@@ -47,16 +45,16 @@ void LIST_DeleteFunc(NodeType *node)
     node->next = NULL;
 }
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_GetFunc);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_GetFunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_LastOrdered);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_LastOrdered);
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_SortFunc);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_SortFunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_HeadFunc);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_HeadFunc);
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_Flip);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_Flip);
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_Count);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_Count);
 
-INCLUDE_ASM("asm/nonmatchings/game/LIST", LIST_Concatenate);
+INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_Concatenate);
