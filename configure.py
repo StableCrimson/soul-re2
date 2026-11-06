@@ -44,7 +44,7 @@ COMMON_INCLUDES = (
 )
 
 CC_DIR = f"{TOOLS_DIR}/cc/bin"
-COMMON_COMPILE_FLAGS = f"-B{TOOLS_DIR}/cc/lib/gcc-lib/ee/2.96-ee-001003-1/ -O2"
+COMMON_COMPILE_FLAGS = f"-B{TOOLS_DIR}/cc/lib/gcc-lib/ee/2.96-ee-001003-1/ -O1"
 
 # WINE = "wine"
 # WINE_ENV = "WINEPREFIX=~/.wine_ps2 WINEDEBUG=-all"
@@ -261,7 +261,7 @@ def build_stuff(linker_entries: List[LinkerEntry], skip_checksum=False, objects_
             f"{CC_DIR}/ee-gcc -S {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $gflag $in $cflags -o $out.s; "
             #f"{WINE_RUN} {CC_DIR}/ee-gcc -S {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $in $cflags -o $out.s; "
             # f"wineserver -w; "
-            f"{AS_EE} -O2 -mabi=eabi $gflag -o $out $out.s; "
+            f"{AS_EE} -O1 -mabi=eabi $gflag -o $out $out.s; "
             # f"{WINE_RUN} {AS_EE} -G4 -O2 -mabi=eabi -o $out $out.s; "
             # f"wineserver -w; "
             f"test -s $out && {cross}strip $out -N dummy-symbol-name"
@@ -419,6 +419,7 @@ OPCODE_PATTERN = re.compile(f"{COMMENT_PART}  {INSTRUCTION_PART}")
 PROBLEMATIC_FUNCS = set(
     [
         # Problematic functions go here
+        "LIST_Count",
     ]
 )
 

@@ -55,7 +55,9 @@ segments:
     vram: 0x00100000
     bss_size: 0x1bea3c0
     subsegments:
-      - [0x001000, asm, text]             
+      - [0x001000, asm, start]            
+      - [0x0425C8, c, game/LIST]          
+      - [0x042878, asm, end]             
       - [0x103B58, textbin, text_nop]     
       - [0x103B60, textbin, vutext]       
       - [0x108B80, data, data]           
