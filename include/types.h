@@ -33,13 +33,11 @@ typedef unsigned char UBYTE;
 typedef long unsigned int ULONG;
 typedef short unsigned int USHORT;
 
-// --- Basic Primitive & Utility Types ---
 typedef int16 NormalCoord;
 typedef uint8 G2AnimSegmentID;
 typedef uint32 G2TimerAtomicUnit;
 typedef int G2Bool;
 
-// --- Forward Declarations ---
 struct _NodeType;
 typedef struct _NodeType NodeType;
 
@@ -83,8 +81,6 @@ typedef struct TerrainAnimTexture TerrainAnimTexture;
 typedef struct _G2AnimChanStatusBlock_Type _G2AnimChanStatusBlock_Type;
 typedef struct _G2AnimInterpInfo_Type _G2AnimInterpInfo_Type;
 typedef void (*G2AnimCallback)(void);
-
-// --- Struct Definitions ---
 
 struct _NodeType {
     NodeType *prev;
@@ -333,6 +329,7 @@ typedef void CollideFunc(void);
 typedef uint32 QueryFunc(void);
 typedef void MessageFunc(void);
 typedef G2Bool (*G2InstanceRebuildCallback)(void);
+typedef void (*StateHandler)(void);
 
 struct _Instance {
     NodeType node;
@@ -461,5 +458,50 @@ struct _PCollideInfo {
 	struct _Instance *instance;
 };
 typedef struct _PCollideInfo PCollideInfo;
+
+struct __Event { 
+	int ID;
+	int Data;
+};
+typedef struct __Event Message;
+
+struct __MessageQueue { 
+	int Head;
+	int Tail;
+	Message Queue[16];
+};
+typedef struct __MessageQueue MessageQueue;
+
+typedef struct { 
+	int16 anim0;
+	int16 anim1;
+	int16 anim2;
+	int16 frames;
+	uint8 mode;
+	uint8 alpha;
+	uint16 frame;
+} VAnim;
+
+typedef Message* (*messageHandler)(void);
+
+struct __State { 
+	void (*Process)(void);
+	messageHandler stateMessageHandler;
+	messageHandler sectionMessageHandler;
+	MessageQueue Event;
+	MessageQueue Defer;
+	int Data1;
+	int Data2;
+	int vanimIndex;
+	VAnim *vanim;
+};
+typedef struct __State State;
+
+struct __CharacterState { 
+	Instance *CharacterInstance;
+	int TotalSections;
+	State SectionList[3];
+};
+typedef struct __CharacterState CharacterState;
 
 #endif // TYPES_H

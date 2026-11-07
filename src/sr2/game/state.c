@@ -1,21 +1,5 @@
 #include "common.h"
 
-// TODO: move these two structs out of here
-typedef struct __Event Message;
-struct __Event 
-{ // 0x8
-	/* 0x0 */ int ID;
-	/* 0x4 */ int Data;
-};
-
-typedef struct __MessageQueue MessageQueue;
-struct __MessageQueue 
-{ // 0x88
-	/* 0x00 */ int Head;
-	/* 0x04 */ int Tail;
-	/* 0x08 */ Message Queue[16];
-};
-
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateAnimCallback);
 
 void InitMessageQueue(MessageQueue *In)
@@ -206,9 +190,18 @@ INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateSwitchStateDataDefault);
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateSwitchStateCharacterDataDefault);
 
+void StateSwitchStateData(CharacterState *In, int CurrentSection, StateHandler NewProcess, int Data);
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateSwitchStateData);
 
-INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateSwitchStateCharacterData);
+void StateSwitchStateCharacterData(CharacterState *In, StateHandler NewProcess, int Data)
+{
+	int i;
+
+	for (i = 0; i < In->TotalSections; i++)
+	{
+        StateSwitchStateData(In, i, NewProcess, Data); 
+	}
+}
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateSetStateCharacter);
 
