@@ -1,13 +1,5 @@
 #include "common.h"
 
-// TODO: move this struct outta here
-typedef struct NodeType NodeType;
-struct NodeType 
-{ // 0x8
-	/* 0x0 */ NodeType *prev;
-	/* 0x4 */ NodeType *next;
-};
-
 INCLUDE_ASM("asm/nonmatchings/sr2/game/LIST", LIST_InsertFunc);
 
 void LIST_DeleteFunc(NodeType *node)

@@ -4,7 +4,12 @@ INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", SetNoPtCollideInFamily);
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", ResetNoPtCollideInFamily);
 
-INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckLineInWorld);
+void PHYSICS_CheckLineInWorld(Instance *instance, PCollideInfo *pcollideInfo) 
+{
+    pcollideInfo->collideType = 63;
+
+    PHYSICS_CheckLineInWorldMask(instance, pcollideInfo);
+}
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", PHYSICS_CheckLineInWorldMask);
 
