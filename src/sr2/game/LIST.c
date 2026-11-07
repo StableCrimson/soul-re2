@@ -10,22 +10,22 @@ void LIST_DeleteFunc(NodeType *node)
         {
             node->prev->next = node->next;
             node->next->prev = node->prev;
+
             node->prev = NULL;
             node->next = NULL;
-            
             return;
         }
     }
-    else if (node->next)
+    else if (node->next != NULL)
     {
         node->next->prev = NULL;
+        
         node->prev = NULL;
         node->next = NULL;
-
         return;
     }
     
-    if (node->prev)
+    if (node->prev != NULL)
     {
         node->prev->next = NULL;
         node->prev = NULL;
