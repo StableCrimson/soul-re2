@@ -2,7 +2,17 @@
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", SetNoPtCollideInFamily);
 
-INCLUDE_ASM("asm/nonmatchings/sr2/game/physics", ResetNoPtCollideInFamily);
+void ResetNoPtCollideInFamily(Instance *instance)
+{
+    Instance *child;
+
+    instance->iflags &= 0xFFFFFFBF; // TODO: find out why it won't take the inverted form of the mask (~0x40)
+
+    for (child = instance->LinkChild; child != NULL; child = child->LinkSibling)
+    {
+        ResetNoPtCollideInFamily(child);
+    }
+}
 
 void PHYSICS_CheckLineInWorld(Instance *instance, PCollideInfo *pcollideInfo) 
 {
