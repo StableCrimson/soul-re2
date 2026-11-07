@@ -20,8 +20,8 @@ INCLUDE_ASM("asm/nonmatchings/sr2/game/state", StateAnimCallback);
 
 void InitMessageQueue(MessageQueue *In)
 {
-    In->Tail = 0;
     In->Head = 0;
+    In->Tail = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", DeMessageQueue);
@@ -30,8 +30,8 @@ INCLUDE_ASM("asm/nonmatchings/sr2/game/state", RemoveIDsFromMessageQueue);
 
 void PurgeMessageQueue(MessageQueue *In)
 {
-    In->Head = 0;
     In->Tail = 0;
+    In->Head = 0;
 }
 
 INCLUDE_ASM("asm/nonmatchings/sr2/game/state", PeekMessageQueue);

@@ -64,14 +64,14 @@ segments:
       - [0x005F18, c, sr2/game/sound/music/musscript]     
       - [0x0072A8, c, sr2/game/sound/music/musplay]       
       - [0x007DE0, c, sr2/game/ps2/snd/snd]               
-      - [0x0098D0, c, sr2/game/ps2/snd/sndstrm]           
+      - [0x0098D0, asm, sr2/game/ps2/snd/sndstrm] # troubling to turn to C         
       - [0x00AD20, c, sr2/game/ps2/asyncld]               
-      - [0x00BF20, c, sr2/game/Main]                      
+      - [0x00BF20, asm, sr2/game/Main] # troubling                      
       - [0x00D7F8, c, sr2/game/ps2/psxmath]               
       - [0x00DB98, c, sr2/game/terrain]                   
-      - [0x00F840, c, sr2/game/normalmask]                
+      - [0x00F840, asm, sr2/game/normalmask] # troubling               
       - [0x0101C0, c, sr2/game/Camera]                    
-      - [0x019690, c, sr2/game/collide]                   
+      - [0x019690, asm, sr2/game/collide] # troubling                    
       - [0x021B38, c, sr2/game/debug]   
       # - [0x023CEC, asm, sr2/game/editmenu] (empty)
       # - [0x023CEC, asm, sr2/game/editparticle] (empty)
@@ -83,8 +83,8 @@ segments:
       - [0x026AC8, c, sr2/game/event]                    
       - [0x027FC0, c, sr2/game/font]                     
       - [0x028718, c, sr2/game/ps2/fontsku]              
-      - [0x028AD8, c, sr2/game/fx]                       
-      - [0x036930, c, sr2/game/Gameloop]                 
+      - [0x028AD8, asm, sr2/game/fx] # troubling                         
+      - [0x036930, asm, sr2/game/Gameloop] # troubling                 
       - [0x038880, c, sr2/game/ps2/gamepad]              
       - [0x039708, c, sr2/game/Generic]                  
       - [0x039BC0, c, sr2/game/glyph]                    
@@ -99,7 +99,7 @@ segments:
       # - [0x045260, asm, sr2/game/obtable2] (empty)      
       - [0x045260, c, sr2/game/physics]                 
       - [0x048D10, c, sr2/game/ps2/pipe3d]               
-      - [0x04AEC0, c, sr2/game/ps2/ps2draw]              
+      - [0x04AEC0, asm, sr2/game/ps2/ps2draw] # troubling               
       - [0x0501D0, c, sr2/game/ps2/ps2fxdraw]            
       - [0x054F10, c, sr2/game/Player]                   
       - [0x0550D8, c, sr2/game/razcntrl]                 
@@ -108,9 +108,9 @@ segments:
       - [0x056FB0, c, sr2/game/Script]                   
       - [0x057E50, c, sr2/game/Signal]                   
       - [0x058B28, c, sr2/game/sound/Sound]              
-      - [0x05BBD8, c, sr2/game/SPLINE]                   
+      - [0x05BBD8, asm, sr2/game/SPLINE]                   
       - [0x05D7D0, c, sr2/game/state]                    
-      - [0x060420, c, sr2/game/stream]          
+      - [0x060420, asm, sr2/game/stream]          
       # - [0x063F50, asm, sr2/game/ps2/TABLES] (empty)         
       - [0x063F50, c, sr2/game/ps2/timer]             
       - [0x0640E8, c, sr2/game/VM]                       
@@ -122,14 +122,14 @@ segments:
       - [0x06B8D8, c, sr2/game/load3d]                   
       - [0x06C528, c, sr2/game/morph]   
       # - [0x06E15C, asm, sr2/game/fxdraw] (empty except for 4 padding bytes)             
-      - [0x06E160, c, sr2/game/spiral]                   
-      - [0x06F4A8, c, sr2/game/map]                      
+      - [0x06E160, asm, sr2/game/spiral] # troubling                   
+      - [0x06F4A8, asm, sr2/game/map] # troubling                  
       - [0x06FAA8, c, sr2/game/weather]                  
       - [0x06FE60, c, sr2/game/monster/ambient]          
       - [0x072DD8, c, sr2/game/monster/missile]          
       - [0x073110, c, sr2/game/monster/monapi]           
       - [0x075688, c, sr2/game/monster/monlib]           
-      - [0x080A48, c, sr2/game/monster/monsense]         
+      - [0x080A48, asm, sr2/game/monster/monsense] # troubling   
       - [0x082A00, c, sr2/game/monster/monster]          
       - [0x08A1E0, c, sr2/game/monster/montable]         
       - [0x08A4C0, c, sr2/game/monster/monnav]           
@@ -163,7 +163,7 @@ segments:
       - [0x0C5848, c, sr2/game/ps2/movie/read]           
       - [0x0C5B78, c, sr2/game/ps2/movie/readbuf]        
       - [0x0C5C80, c, sr2/game/ps2/movie/vibuf]          
-      - [0x0C6C38, c, sr2/game/ps2/movie/videodec]       
+      - [0x0C6C38, asm, sr2/game/ps2/movie/videodec] # troubling   
       - [0x0C7520, c, sr2/game/ps2/movie/vobuf]          
       - [0x0C7750, c, sr2/game/menu/menu]                
       - [0x0C85D0, c, sr2/game/menu/menuutil]            

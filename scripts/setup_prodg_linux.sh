@@ -29,16 +29,16 @@ download() {
 echo Starting ProDG setup script...
 
 # download required files (registry + SDK package)
-download "https://github.com/fmil95/soul-re2/releases/download/eegcc/ee-gcc2.96.tar.gz"
+download "https://github.com/fmil95/soul-re2/releases/download/eegcc/ee-gcc2.95.2-273a.tar.gz"
 
 # apply environment variables from the registry file
 # wine regedit prodg_env.reg
 
 # Extract the compiler into the tools dir
 echo "Extracting compiler to $TOP/tools..."
-tar -xzf /tmp/ee-gcc2.96.tar.gz -C $TOP/tools
+tar -xzf /tmp/ee-gcc2.95.2-273a.tar.gz -C $TOP/tools
 
 echo "Removing temporary files..."
-rm /tmp/ee-gcc2.96.tar.gz
+rm /tmp/ee-gcc2.95.2-273a.tar.gz
 
 echo "Setup complete!"

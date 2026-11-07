@@ -33,6 +33,10 @@ G_OVERRIDES = {
     
 }
 
+O_OVERRIDES = {
+    "LIST.c": "-O1",
+}
+
 SDK_ROOT = "include/sce/usr/local/sce"
 
 COMMON_INCLUDES = (
@@ -44,16 +48,16 @@ COMMON_INCLUDES = (
 )
 
 CC_DIR = f"{TOOLS_DIR}/cc/bin"
-COMMON_COMPILE_FLAGS = f"-B{TOOLS_DIR}/cc/lib/gcc-lib/ee/2.96-ee-001003-1/ -O1"
+COMMON_COMPILE_FLAGS = f"-B{TOOLS_DIR}/cc/lib/gcc-lib/ee/2.95.2/ -O2"
 
-# WINE = "wine"
-# WINE_ENV = "WINEPREFIX=~/.wine_ps2 WINEDEBUG=-all"
+WINE = "wine"
+WINE_ENV = "WINEPREFIX=~/.wine_ps2 WINEDEBUG=-all"
 
 GAME_GCC_CMD = f"{CC_DIR}/ee-gcc.exe -c {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $in"
 COMPILE_CMD = f"{GAME_GCC_CMD}"
 
-# if sys.platform == "linux" or sys.platform == "linux2":
-#     COMPILE_CMD = f"{WINE_ENV} {WINE} {GAME_GCC_CMD}"
+if sys.platform == "linux" or sys.platform == "linux2":
+    COMPILE_CMD = f"{WINE_ENV} {WINE} {GAME_GCC_CMD}"
 
 CATEGORY_MAP = {
     "ps2": "Game",
@@ -250,20 +254,20 @@ def build_stuff(linker_entries: List[LinkerEntry], skip_checksum=False, objects_
         #command=f"{COMPILE_CMD} $cflags -o $out && {cross}strip $out -N dummy-symbol-name",
     #)
 
-    AS_EE = f"{TOOLS_DIR}/cc/ee/bin/as"
-    # WINE_RUN = f"{WINE_ENV} {WINE}" if sys.platform.startswith("linux") else ""
+    AS_EE = f"{TOOLS_DIR}/cc/lib/gcc-lib/ee/2.95.2/as.exe"
+    WINE_RUN = f"{WINE_ENV} {WINE}" if sys.platform.startswith("linux") else ""
 
     ninja.rule(
         "cc",
         description="cc $in",
         command=(
             f"rm -f $out $out.s; "
-            f"{CC_DIR}/ee-gcc -S {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $gflag $in $cflags -o $out.s; "
-            #f"{WINE_RUN} {CC_DIR}/ee-gcc -S {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $in $cflags -o $out.s; "
-            # f"wineserver -w; "
-            f"{AS_EE} -O1 -mabi=eabi $gflag -o $out $out.s; "
-            # f"{WINE_RUN} {AS_EE} -G4 -O2 -mabi=eabi -o $out $out.s; "
-            # f"wineserver -w; "
+            f"{CC_DIR}/ee-gcc.exe -S {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $oflag $gflag $in $cflags -o $out.s; "
+            f"{WINE_RUN} {CC_DIR}/ee-gcc.exe -S {COMMON_INCLUDES} {COMMON_COMPILE_FLAGS} $oflag $in $cflags -o $out.s; "
+            f"wineserver -w; "
+            f"{AS_EE} -O2 -mabi=eabi $gflag -o $out $out.s; "
+            f"{WINE_RUN} {AS_EE} -G4 -O2 -mabi=eabi -o $out $out.s; "
+            f"wineserver -w; "
             f"test -s $out && {cross}strip $out -N dummy-symbol-name"
         ),
     )
@@ -317,7 +321,18 @@ def build_stuff(linker_entries: List[LinkerEntry], skip_checksum=False, objects_
                     gflag = G_OVERRIDES[str(src)]
                     break
 
-            variables = {"gflag": gflag}
+            # Find the appropriate -O flag for this source file, defaulting to -O2
+            oflag = "-O2"
+            for src in entry.src_paths:
+                path_obj = Path(src)
+                if path_obj.name in O_OVERRIDES:
+                    oflag = O_OVERRIDES[path_obj.name]
+                    break
+                elif str(src) in O_OVERRIDES:
+                    oflag = O_OVERRIDES[str(src)]
+                    break
+
+            variables = {"gflag": gflag, "oflag": oflag}
 
             if dual_objects:
                 build(entry.object_path, entry.src_paths, "cc", out_dir="obj/target", variables=variables, collect_objdiff=True, orig_entry=entry)
